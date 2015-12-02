@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
-
+    
     @IBOutlet weak var isbnTextField: UITextField!
     @IBOutlet weak var tituloLbl: UILabel!
     @IBOutlet weak var autor1Lbl: UILabel!
@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var autor3Lbl: UILabel!
     @IBOutlet weak var portadaLbl: UILabel!
     
+    @IBOutlet weak var coverImage: UIImageView!
     @IBOutlet weak var pagesLbl: UILabel!
     
     @IBOutlet weak var anioLbl: UILabel!
@@ -48,43 +49,65 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let url = NSURL(string: urls)
         
         let datos: NSData? = NSData(contentsOfURL: url!)
-        
-
-        
-        do {
-            let json = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableLeaves)
-            print(id)
-            let dict1 = json as! NSDictionary
-            let dict2 = dict1[id] as! NSDictionary
-            tituloLbl.text = dict2["title"] as! NSString as String
-            
-            //Otra forma de obtener autor
-            //let cadena : String = dict2["by_statement"] as! NSString as String
-            //let until : Character = ";"
-            
-            //let author : String = (cadena.substringToIndex(cadena.characters.indexOf(
-            //    until)!))
-            
-            let dict3 = dict2["authors"] as! NSArray
-            dict3.enumerateObjectsUsingBlock({ objeto, index, stop in
-                let dict4 = objeto["name"] as! String
-                self.autor1Lbl.text = dict4
-            })
-            
-            let dict5 = dict2["cover"] as? NSDictionary
-            if dict5 == nil {
-                let alerta = UIAlertController(title: "Alerta", message: "No hay imagen de cover", preferredStyle: .Alert)
+        if datos == nil{
+            let alerta = UIAlertController(title: "Offline", message: "Revise la conexión a internet", preferredStyle: .Alert)
+            alerta.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+            self.presentViewController(alerta, animated: true, completion: nil)
+        }
+        else{
+            let lectura = NSString(data: datos!, encoding: NSUTF8StringEncoding)
+            if lectura == "{}"{
+                let alerta = UIAlertController(title: "ISBN Error!", message: "No se encontró el libro", preferredStyle: .Alert)
                 alerta.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
                 self.presentViewController(alerta, animated: true, completion: nil)
-            } else {
-                pagesLbl.text = "El libro si cuenta con cover"
+            }else{
+                
+                
+                
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableLeaves)
+                    print(id)
+                    let dict1 = json as! NSDictionary
+                    let dict2 = dict1[id] as! NSDictionary
+                    tituloLbl.text = dict2["title"] as! NSString as String
+                    
+                    //Otra forma de obtener autor
+                    //let cadena : String = dict2["by_statement"] as! NSString as String
+                    //let until : Character = ";"
+                    
+                    //let author : String = (cadena.substringToIndex(cadena.characters.indexOf(
+                    //    until)!))
+                    
+                    let dict3 = dict2["authors"] as! NSArray
+                    dict3.enumerateObjectsUsingBlock({ objeto, index, stop in
+                        let dict4 = objeto["name"] as! String
+                        self.autor1Lbl.text = dict4
+                    })
+                    
+                    let dict5 = dict2["cover"] as? NSDictionary
+                    if dict5 == nil {
+                        let alerta = UIAlertController(title: "Cover", message: "No hay imagen de cover", preferredStyle: .Alert)
+                        alerta.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                        self.presentViewController(alerta, animated: true, completion: nil)
+                    }
+                    else {
+                        
+                        let dict6 = dict5!["medium"] as! String
+                        let urls = dict6
+                        let url = NSURL(string: urls)
+                        
+                        let photoData = NSData(contentsOfURL: url!)
+                        let photo = UIImage(data: photoData!)
+                        self.coverImage.image = photo
+                        
+                    }
+                    pagesLbl.text = dict2["notes"] as! NSString as String
+                    
+                }catch _ {
+                    print("Error en JSONSerializacion")
+                }
             }
-            pagesLbl.text = dict2["notes"] as! NSString as String
-            
-        }catch _ {
-            print("Error en JSONSerializacion")
         }
-        
     }
     
     
@@ -93,13 +116,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         isbnTextField.delegate = self
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     
-
+    
+    
 }
 

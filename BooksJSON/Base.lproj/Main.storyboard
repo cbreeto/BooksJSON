@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -67,13 +68,23 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R84-FY-E00">
+                                <rect key="frame" x="20" y="348" width="280" height="200"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="R84-FY-E00" secondAttribute="height" multiplier="7:5" id="aYT-Bv-Oob"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="R84-FY-E00" firstAttribute="top" secondItem="NGE-MP-YLY" secondAttribute="bottom" constant="71" id="1Ad-uv-B6i"/>
                             <constraint firstItem="lfU-DR-dgL" firstAttribute="top" secondItem="nmr-HO-Wga" secondAttribute="bottom" constant="26" id="Adt-fL-OfR"/>
+                            <constraint firstItem="R84-FY-E00" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="DcC-Y6-r5A"/>
                             <constraint firstItem="RQd-i5-y4T" firstAttribute="top" secondItem="lfU-DR-dgL" secondAttribute="bottom" constant="42" id="EN4-Gr-yuW"/>
                             <constraint firstItem="RQd-i5-y4T" firstAttribute="leading" secondItem="V5N-8h-zqf" secondAttribute="leading" id="NS6-B8-oUY"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="R84-FY-E00" secondAttribute="bottom" constant="20" id="P4U-yo-s9k"/>
                             <constraint firstItem="lfU-DR-dgL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="U9S-DA-HMK"/>
                             <constraint firstItem="RQd-i5-y4T" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="28" id="dTd-Wi-Wvc"/>
                             <constraint firstItem="lfU-DR-dgL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hfT-ni-Lkv"/>
@@ -81,12 +92,14 @@
                             <constraint firstItem="nmr-HO-Wga" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="29" id="qV1-di-fs9"/>
                             <constraint firstItem="V5N-8h-zqf" firstAttribute="top" secondItem="RQd-i5-y4T" secondAttribute="bottom" constant="24" id="qw5-dn-bfJ"/>
                             <constraint firstItem="NGE-MP-YLY" firstAttribute="top" secondItem="V5N-8h-zqf" secondAttribute="bottom" constant="17" id="xdp-6H-Khd"/>
+                            <constraint firstItem="R84-FY-E00" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yxw-dt-6bo"/>
                             <constraint firstItem="nmr-HO-Wga" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zmo-tP-AmQ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="autor1Lbl" destination="V5N-8h-zqf" id="nyH-Hf-WVP"/>
                         <outlet property="autor2Lbl" destination="NGE-MP-YLY" id="zAB-a8-7gv"/>
+                        <outlet property="coverImage" destination="R84-FY-E00" id="2bE-Lv-jxZ"/>
                         <outlet property="isbnTextField" destination="lfU-DR-dgL" id="EjK-ao-S3y"/>
                         <outlet property="pagesLbl" destination="NGE-MP-YLY" id="dUU-Vr-Iel"/>
                         <outlet property="tituloLbl" destination="RQd-i5-y4T" id="mlH-5h-F1E"/>
