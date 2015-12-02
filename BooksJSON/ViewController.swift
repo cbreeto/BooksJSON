@@ -9,7 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
-    
+    //
+    //
+    //
     @IBOutlet weak var isbnTextField: UITextField!
     @IBOutlet weak var tituloLbl: UILabel!
     @IBOutlet weak var autor1Lbl: UILabel!
@@ -43,8 +45,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         let isbn = self.isbnTextField.text
         let urls = "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:" + isbn!
+
         let id = "ISBN:" + isbn!
-        
+        //let id = "ISBN:978-84-376-0494-7"
         
         let url = NSURL(string: urls)
         
@@ -89,6 +92,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         let alerta = UIAlertController(title: "Cover", message: "No hay imagen de cover", preferredStyle: .Alert)
                         alerta.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
                         self.presentViewController(alerta, animated: true, completion: nil)
+                        self.coverImage.image = UIImage(named: "notFound")
                     }
                     else {
                         
